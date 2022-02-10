@@ -2,12 +2,11 @@
 
 namespace app\controllers;
 
-use app\models\Workers;
-use Faker\Core\File;
 use Yii;
-use yii\data\Pagination;
+use yii\web\Controller;
+use app\models\Workers;
 
-class WorkersController extends \yii\web\Controller {
+class WorkersController extends Controller {
 	public function actionAdd() {
 		$model = new Workers();
 		if (Yii::$app->request->isPost) {
@@ -93,7 +92,7 @@ class WorkersController extends \yii\web\Controller {
 			$report .= sprintf("%s %s, %g, %g, %g\r\n", $worker->firstname, $worker->lastname, $worker->wages, $taxSum, $wagesSumWithTax);
 		}
 		$report .= sprintf("%s %g, %g, %g\r\n", 'Total: ', $wagesSumAll, $taxSumAll, $wagesSumWithTaxAll);
-		$filename = md5(microtime()).'.txt';
+		$filename = md5(microtime()) . '.txt';
 		$path = Yii::$app->runtimePath . '\\tmp\\' . $filename;
 		touch($path);
 		file_put_contents($path, $report);
