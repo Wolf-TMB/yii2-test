@@ -15,7 +15,7 @@ class Workers extends ActiveRecord {
 	{
 		return [
 			[['firstname', 'lastname', 'phone', 'post', 'status', 'wages'], 'required'],
-			['wages' => 'double']
+			[['wages'], 'double']
 		];
 	}
 
