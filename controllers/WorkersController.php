@@ -12,7 +12,7 @@ class WorkersController extends \yii\web\Controller {
 		$model = new Workers();
 		if (Yii::$app->request->isPost) {
 			$model->load(Yii::$app->request->post());
-			if ($model->save()) {
+			if ($model->validate() && $model->save()) {
 				Yii::$app->session->setFlash('message', 'Employee successfully added.');
 			}
 			return $this->refresh();
@@ -62,7 +62,9 @@ class WorkersController extends \yii\web\Controller {
 			$model->wages = $data['wages'];
 			$model->post = $data['post'];
 			$model->status = $data['status'];
-			$model->save();
+			if ($model->validate()) {
+				$model->save();
+			}
 			$this->redirect(['workers/list']);
 		} else {
 			return $this->render('update', ['model' => $model]);
